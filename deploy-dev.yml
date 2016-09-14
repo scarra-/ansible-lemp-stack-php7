@@ -28,4 +28,4 @@
     - name: 1. Restart php-fpm (After Deployment)
       shell: "{{ item }}"
       with_items:
-        - /etc/init.d/php5-fpm restart
+        - /etc/init.d/php7.0-fpm restart
