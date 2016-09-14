@@ -1,0 +1,6 @@
+---                                                                             
+  hostname: devops       #hostname of the Linux Server                             
+  domain: 8bitrockr.com      #Domain name that will be used in fqdn                    
+  fqdn: "{{ hostname }}.{{ domain }}" #FQDN that will be used in hosts file    
+  default_ip: "127.0.0.1"
+  timezone: "Asia/Karachi"

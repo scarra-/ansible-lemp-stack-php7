@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: yes
+  strategy: debug
+
+  vars:
+      DocRoot: "/var/www/html"
+      DocRootbak: "/var/www/html-bak"
+      Repo: "https://github.com/thuannvn/hello-world-php.git"
+
+  tasks:
+    - name: 1. Backup source code (Before Deployment)
+      shell: "{{ item }}"
+      with_items:
+        - rsync -arvz {{ DocRoot }} {{ DocRootbak }} --exclude=.git/
+
+    - name: 1. Clean code (Before Deployment)
+      shell: "{{ item }}"
+      with_items:
+        - rm -Rf {{ DocRoot }}
+
+    - name: 2. Git clone update on master branch from github.com ( Deployment )
+      git: repo={{ Repo }} dest={{ DocRoot}} update=yes
+    
+    - name: 3. Copy dev.conf local to remote server (After Deployment)
+      copy: src=dev.conf dest={{DocRoot}}/configure.conf owner=root group=root mode=0644
+
+    - name: 1. Restart php-fpm (After Deployment)
+      shell: "{{ item }}"
+      with_items:
+        - /etc/init.d/php5-fpm restart

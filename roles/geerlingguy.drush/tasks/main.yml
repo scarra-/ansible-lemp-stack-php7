@@ -1,0 +1,3 @@
+---
+- name: Install drush
+  apt: pkg=drush state=installed update_cache=true

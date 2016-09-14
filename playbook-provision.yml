@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  vars:
+  roles:
+    - { role: common }
+    - { role: lemp }
+    - { role: geerlingguy.composer}
+    - { role: geerlingguy.drush}
+    - { role: geerlingguy.git}
